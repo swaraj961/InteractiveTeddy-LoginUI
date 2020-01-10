@@ -27,6 +27,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String password = "admin";
+  String animationtype = "idle";
+  final passwordcontroller = TextEditingController();
+  final focuspasswordnode = FocusNode();
+
+@override
+void initState() { // so that to create a lisener to check the user is focusing on password or not
+    // TODO: implement initState
+    focuspasswordnode.addListener((){
+      if(focuspasswordnode.hasFocus) {
+      setState(() {
+        animationtype="test";
+      });
+      } else {
+        setState(() {
+          
+          animationtype="idle";
+        });
+      }
+    
+
+    });
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 300,
             child: CircleAvatar(
               child: ClipOval(child: 
-             new  FlareActor("assets/teddy_test.flr",alignment: Alignment.center,animation:"idle",fit:BoxFit.contain,))
+             new  FlareActor("assets/teddy_test.flr",alignment: Alignment.center,animation:animationtype,fit:BoxFit.contain,))
                 
               ,
               backgroundColor: Colors.pinkAccent,
@@ -65,9 +91,21 @@ class _LoginScreenState extends State<LoginScreen> {
            ),
            child: Column(
              children: <Widget>[
-               TextFormField(decoration: InputDecoration(border: InputBorder.none,hintText: "username",contentPadding: EdgeInsets.all(20)),),
+               TextFormField(decoration: InputDecoration(
+                 border: InputBorder.none,
+                 hintText: "username",
+                 contentPadding: EdgeInsets.all(20)),),
+
                Divider(),
-               TextFormField(decoration: InputDecoration(border: InputBorder.none,hintText: "password",contentPadding: EdgeInsets.all(20)),),
+
+               TextFormField(decoration: InputDecoration(border:
+                InputBorder.none,
+                hintText: "password",
+                contentPadding: EdgeInsets.all(20)),
+                controller: passwordcontroller,
+                focusNode:focuspasswordnode,
+                obscureText: true,
+                ) ,
            
              ],
            ),
@@ -86,6 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Text("Submit",style: TextStyle(color: Colors.white),),
             
             onPressed: (){
+if(passwordcontroller.text.compareTo(password)==0) {
+  setState(() {
+    animationtype="success";
+    
+  });
+} else 
+ setState(() {
+   animationtype="fail";
+   
+ });
 
             },
             ),
