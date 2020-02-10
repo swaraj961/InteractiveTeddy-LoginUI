@@ -7,6 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       
       theme: ThemeData(
         
@@ -14,9 +15,11 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
+        
        // backgroundColor: Colors.greenAccent,
         backgroundColor: Color.fromRGBO(38, 50, 56, 1),
         body: LoginScreen()
+        
       )
     );
   }
